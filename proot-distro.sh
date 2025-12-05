@@ -831,7 +831,7 @@ run_proot_cmd() {
 		unset LD_PRELOAD
 
 		# shellcheck disable=SC2086 # ${cpu_emulator_arg} should expand into nothing rather than into ''.
-		if [ -z "${cpu_emulator_arg}" ] && command -v su >/dev/null 2>&1; then
+		if [ -z "${cpu_emulator_arg}" ] && command -v su >/dev/null 2>&1 && [ "`su -c id -u`" = 0 ]; then
 			su <<-EOF
 				mount --bind /dev "${INSTALLED_ROOTFS_DIR}/${distro_name}/dev"
 				mount --bind /proc "${INSTALLED_ROOTFS_DIR}/${distro_name}/proc"
